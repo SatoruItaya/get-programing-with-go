@@ -7,26 +7,34 @@ import (
 
 func main() {
 
-	fmt.Printf("%-16v %v  %-12v  %3v\n", "Spaceline", "Days", "Trip type", "Price")
+	fmt.Println("Spaceline        Days Trip type    Price")
 	fmt.Println("===============================================")
-
+	
+	distance := 62100000
+	spaceline := ""
+	tirpType := ""
+	
 	for i := 0; i <= 10; i++ {
 		switch rand.Intn(3) {
 		case 0:
-			fmt.Printf("%-16v ", "Space Adventures")
+			spaceline = "Space Adventures"
 		case 1:
-			fmt.Printf("%-16v ", "SpaceX")
+			spaceline = "SpaceX"
 		case 2:
-			fmt.Printf("%-16v ", "Virgin Galactic")
+			spaceline = "Virgin Galactic"
 		}
-		days := rand.Intn(15) + 16
-		price := days + 20
-		fmt.Printf("%v    ", days)
+		
+		velocity := rand.Intn(15) + 16
+		days := distance/velocity/60/60/24
+		price := velocity + 20
 
 		if rand.Intn(2) == 0 {
-			fmt.Printf("%-13v $%4v\n", "One-way", price)
+			tirpType = "One-way"
 		} else {
-			fmt.Printf("%-13v $%4v\n", "Round-trip", price*2)
+			tirpType="Round-trip"
+			price *= 2
 		}
+		
+		fmt.Printf("%-16v %-3v  %-12v $%3v\n", spaceline, days, tirpType, price)
 	}
 }
