@@ -1,1 +1,0 @@
-# get-programing-with-go
