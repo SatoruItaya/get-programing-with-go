@@ -7,8 +7,8 @@ import (
 
 func main() {
 
-	fmt.Printf("%-16v %v   %-12v  %3v\n", "Spaceline", "Days", "Trip type", "Price")
-	fmt.Println("======================================================")
+	fmt.Printf("%-16v %v  %-12v  %3v\n", "Spaceline", "Days", "Trip type", "Price")
+	fmt.Println("===============================================")
 
 	for i := 0; i <= 10; i++ {
 		switch rand.Intn(3) {
@@ -21,7 +21,7 @@ func main() {
 		}
 		days := rand.Intn(15) + 16
 		price := days + 20
-		fmt.Printf("%v     ", days)
+		fmt.Printf("%v    ", days)
 
 		if rand.Intn(2) == 0 {
 			fmt.Printf("%-13v $%4v\n", "One-way", price)
