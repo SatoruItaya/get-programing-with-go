@@ -21,19 +21,26 @@ func NewUniverse() Universe{
 	return u
 }
 
-func (u Universe) Show(){
-	h := 0
-	for h < height{
+func (u Universe) String() string{
+	var b byte
+	buf := make([]byte, 0, (width+1)*height)
+	
+	for h:= 0; h < height; h++{
 		for w:= 0; w < width; w++ {
 			if u[h][w] {
-				fmt.Print("*")
+				b = '*'
 			}else{
-				fmt.Print("-")
+				b = ' '
 			}
+			buf = append(buf, b)
 		}
-		fmt.Println()
-		h++
+		buf = append(buf, '\n')
 	}
+	return string(buf)
+}
+
+func (u Universe) Show(){
+	fmt.Print("\x0c", u.String())
 }
 
 func (u Universe) Seed(){
@@ -74,25 +81,27 @@ func (u Universe) Next(x, y int) bool{
 	return n == 3 || n == 2 && u.Alive(x, y)
 }
 
+func (u Universe) Set(x, y int, b bool){
+	u[x][y] = b
+}
+
 func Step(a, b Universe){
-	a.Seed()
-	for {
-		a, b = b, a
-		a.Show()
-		
-		s, t := 0, 0
-		for s < height{
-			for t < width{
-				b.Next(s, t)
-			}
+	for x := 0; x < height; x++{
+		for y := 0; y < width; y++{
+			b.Set(x, y, a.Next(x, y))
 		}
-		
-		time.Sleep(3 * time.Second)
-		fmt.Print("\x0c")
 	}
 }
 
 func main(){
-	universe := NewUniverse()
-	Step(universe, universe)
+	a,b := NewUniverse(), NewUniverse()
+	a.Seed()
+	
+	for i := 0; i <= 300; i++{
+		Step(a, b)
+		a.Show()
+		time.Sleep(time.Second / 30)
+		a,b = b,a
+	}
+	
 }
