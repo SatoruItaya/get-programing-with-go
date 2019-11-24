@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"err"
+	"errors"
 )
 
 func main() {
@@ -45,4 +45,22 @@ func inBounds(row, column int) bool{
 
 func validDigit(digit init8){
 	return 1 <= digit && digit <= 9
+}
+
+func (g *Grid) inRow(row int, digit int8) bool{
+	for c:=0; c < columns; c++{
+		if g[row][c].digit == digit{
+			return true
+		}
+	}
+	return false
+}
+
+func (g *Grid) inColumn(column int, digit int8) bool{
+	for r:=0; r < rows; r++{
+		if g[r][column].digit == digit{
+			return true
+		}
+	}
+	return false
 }
